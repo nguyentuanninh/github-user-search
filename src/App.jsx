@@ -5,8 +5,8 @@ import Search from "./components/Search";
 
 function App() {
     return (
-        <div className="App">
-            <Navbar />
+        <div className="w-full">
+            <Navbar></Navbar>
         </div>
     );
 }
