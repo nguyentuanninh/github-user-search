@@ -1,3 +1,4 @@
-import logo from "./logo.webp";
+import logoDark from "./logoDark.png";
+import logoLight from "./logoLight.png";
 
-export { logo };
+export { logoDark, logoLight };
