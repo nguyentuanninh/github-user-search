@@ -1,5 +1,7 @@
 import React from "react";
+
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { logoDark, logoLight } from "../assets/index";
 
 function Navbar() {
@@ -43,10 +45,10 @@ function Navbar() {
                     </div>
                 </li>
                 <li className="font-poppins font-medium cursor-pointer text-[20px] sm:text-[26px] dark:text-white">
-                    <a href="#">Home</a>
+                    <Link to="/">Home</Link>
                 </li>
                 <li className="font-poppins font-medium cursor-pointer text-[20px] sm:text-[26px] dark:text-white">
-                    <a href="#">About</a>
+                    <Link to="/about">About</Link>
                 </li>
             </ul>
         </nav>
