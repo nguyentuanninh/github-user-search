@@ -17,7 +17,7 @@ const MainSection = () => {
     };
 
     useEffect(() => {
-        fetch(`https://api.github.com/search/users?q=nguyen`)
+        fetch(`https://api.github.com/search/users?q=nguyentuan`)
             .then(res => res.json())
             .then(
                 result => {
@@ -51,7 +51,6 @@ const MainSection = () => {
                 className="mt-5 flex flex-wrap gap-5 items-center justify-center
              max-w-5xl overflow-x-hidden"
             >
-                {console.log(items)}
                 {items.map((item, index) => {
                     if (index < 30) {
                         return <Card key={index} {...item} />;

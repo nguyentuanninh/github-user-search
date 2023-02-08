@@ -1,11 +1,26 @@
 import React from "react";
+import { useState } from "react";
+import User from "./User";
 
-const Card = ({ avatar_url, login, id }) => {
+const Card = ({ avatar_url, login, id, url }) => {
+    const [show, setShow] = useState(false);
+
+    const handlerClickCard = () => {
+        setShow(true);
+    };
+
+    const getData = data => {
+        if (data) {
+            setShow(false);
+        }
+    };
+
     return (
         <div>
-            <a
-                href="#"
-                className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+            <button
+                onClick={handlerClickCard}
+                type="button"
+                className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
             >
                 <img
                     className="object-cover w-full rounded-t-lg h-[110px] md:rounded-none md:rounded-l-lg"
@@ -20,7 +35,8 @@ const Card = ({ avatar_url, login, id }) => {
                         id: {id}
                     </p>
                 </div>
-            </a>
+            </button>
+            {show && <User api={url} toggle={getData} />}
         </div>
     );
 };
