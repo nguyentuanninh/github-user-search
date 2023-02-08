@@ -1,25 +1,28 @@
 import React from "react";
 
-const Card = ({ total_count, items }) => {
-    if (total_count == 0) {
-        return (
-            <p
-                className="font-poppins font-medium cursor-pointer
-             text-[16px] sm:text-[20px] text-red-600 pt-5"
+const Card = ({ avatar_url, login, id }) => {
+    return (
+        <div>
+            <a
+                href="#"
+                className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
             >
-                *Don't find any people
-            </p>
-        );
-    } else if (total_count > 3) {
-        items = items.slice(0, 3).map(e => {
-            return (
-                <div className="p-5 bg-white rounded-lg">
-                    <a href="#"></a>
+                <img
+                    className="object-cover w-full rounded-t-lg h-[110px] md:rounded-none md:rounded-l-lg"
+                    src={avatar_url}
+                    alt=""
+                />
+                <div className="flex flex-col justify-between p-4 leading-normal">
+                    <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        {login}
+                    </h5>
+                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                        id: {id}
+                    </p>
                 </div>
-            );
-        });
-    }
-    return <div>a</div>;
+            </a>
+        </div>
+    );
 };
 
 export default Card;

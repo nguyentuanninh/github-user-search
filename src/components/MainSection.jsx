@@ -3,38 +3,63 @@ import { useState, useEffect } from "react";
 
 import Card from "./Card";
 import Search from "./Search";
+import Loading from "./Loading";
 //https://api.github.com/users/nguyentuanninh
 //https://api.github.com/users/nguyentuanninh/repos?page=1&per_page=10&sort=updated
 
 const MainSection = () => {
-    const [items, setItems] = useState();
-    const [users, setUsers] = useState("");
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [items, setItems] = useState([]);
+    const [users, setUsers] = useState("nguyentuanninh");
     const getData = data => {
         setUsers(data);
     };
 
     useEffect(() => {
-        const fetchUsers = async () => {
-            const res = await fetch(
-                `https://api.github.com/search/users?q=${users}`
+        fetch(`https://api.github.com/search/users?q=nguyen`)
+            .then(res => res.json())
+            .then(
+                result => {
+                    setIsLoaded(true);
+                    setItems(result.items);
+                },
+                error => {
+                    setIsLoaded(true);
+                    setError(error);
+                }
             );
-            const data = await res.json();
-            setItems(data);
-        };
-        fetchUsers();
-    }, [users]);
-    {
-        console.log(items);
-    }
-    return (
-        <div className="w-3/5 flex flex-col items-center justify-center">
-            <div className="w-3/5">
-                <Search onSubmit={getData} />
-            </div>
+    }, []);
 
-            <div>{users !== "" ? <Card {...items} /> : ""}</div>
-        </div>
-    );
+    if (error) {
+        return <>{error.message}</>;
+    } else if (!isLoaded) {
+        return (
+            <div className="mt-6">
+                <Loading type="spinningBubbles" color="#e51414" />;
+            </div>
+        );
+    } else if (items == undefined) {
+        return (
+            <p className="font-poppins font-normal text-[18px] text-red-600 py-[20px]">
+                *Don't find any people
+            </p>
+        );
+    } else {
+        return (
+            <div
+                className="mt-5 flex flex-wrap gap-5 items-center justify-center
+             max-w-5xl overflow-x-hidden"
+            >
+                {console.log(items)}
+                {items.map((item, index) => {
+                    if (index < 30) {
+                        return <Card key={index} {...item} />;
+                    }
+                })}
+            </div>
+        );
+    }
 };
 
 export default MainSection;
