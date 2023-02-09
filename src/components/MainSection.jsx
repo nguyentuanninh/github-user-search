@@ -7,17 +7,14 @@ import Loading from "./Loading";
 //https://api.github.com/users/nguyentuanninh
 //https://api.github.com/users/nguyentuanninh/repos?page=1&per_page=10&sort=updated
 
-const MainSection = () => {
+const MainSection = ({ search }) => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
     const [users, setUsers] = useState("nguyentuanninh");
-    const getData = data => {
-        setUsers(data);
-    };
 
     useEffect(() => {
-        fetch(`https://api.github.com/search/users?q=nguyentuan`)
+        fetch(`https://api.github.com/search/users?q=${search}`)
             .then(res => res.json())
             .then(
                 result => {
@@ -29,8 +26,7 @@ const MainSection = () => {
                     setError(error);
                 }
             );
-    }, []);
-
+    }, [search]);
     if (error) {
         return <>{error.message}</>;
     } else if (!isLoaded) {
@@ -39,7 +35,7 @@ const MainSection = () => {
                 <Loading type="spinningBubbles" color="#e51414" />;
             </div>
         );
-    } else if (items == undefined) {
+    } else if (items == undefined || items.length == 0) {
         return (
             <p className="font-poppins font-normal text-[18px] text-red-600 py-[20px]">
                 *Don't find any people
